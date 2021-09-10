@@ -1,8 +1,8 @@
 {
 	"name": "cpp-new-class",
-	"displayName": "C++ Create New Class",
+	"displayName": "C++ New Class",
 	"description": "Yet another C++ class files generator",
-	"version": "0.23.1",
+	"version": "0.23.2",
 	"publisher": "stolyarchuk",
 	"icon": "icon/logo.png",
 	"repository": {
@@ -50,40 +50,40 @@
 					".h"
 				]
 			}
-		]
-	},
-	"configuration": [
-		{
-			"title": "C++ New Class",
-			"properties": {
-				"cpp.newclass.cppExt": {
-					"type": "string",
-					"default": "cc",
-					"description": "C++ source file extension (.cc)"
-				},
-				"cpp.newclass.hppExt": {
-					"type": "string",
-					"default": "h",
-					"description": "C++ header file extension (.h)"
-				},
-				"cpp.newclass.useIfndef": {
-					"type": "boolean",
-					"default": true,
-					"description": "Use *#ifndef* for header guard. Use *#pragma once* otherwise."
-				},
-				"cpp.newclass.lowerCaseNS": {
-					"type": "boolean",
-					"default": true,
-					"description": "Transform namespace names to lower case."
-				},
-				"cpp.newclass.snakeCaseFileName": {
-					"type": "boolean",
-					"default": true,
-					"description": "Transform filenames to snake case."
+		],
+		"configuration": [
+			{
+				"title": "C++ New Class",
+				"properties": {
+					"cpp.newclass.cppExtension": {
+						"type": "string",
+						"default": "cc",
+						"description": "C++ source file extension (.cc)"
+					},
+					"cpp.newclass.hppExtension": {
+						"type": "string",
+						"default": "h",
+						"description": "C++ header file extension (.h)"
+					},
+					"cpp.newclass.useIfndef": {
+						"type": "boolean",
+						"default": true,
+						"description": "Use #ifndef for header guard. Use #pragma once otherwise."
+					},
+					"cpp.newclass.lowerCaseNamespace": {
+						"type": "boolean",
+						"default": true,
+						"description": "Transform namespace names to lower case."
+					},
+					"cpp.newclass.snakeCaseFilename": {
+						"type": "boolean",
+						"default": true,
+						"description": "Transform filenames to snake case."
+					}
 				}
 			}
-		}
-	],
+		]
+	},
 	"scripts": {
 		"vscode:prepublish": "npm run esbuild-base -- --minify",
 		"esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",

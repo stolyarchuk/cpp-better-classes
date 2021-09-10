@@ -10,7 +10,7 @@
 
 ## Usage
 
-* Open command pallete (hit `ctrl+shift+p`)
+* Open command pallete (`ctrl+shift+p`)
 * Type `C/C++: Create New Class...`
 
 ## Keyboard Shortcut
@@ -19,8 +19,8 @@
 
 ## Settings
 
-* `cpp.newclass.hppExt` - extension for the header file created (defaults to `'h'`)
-* `cpp.newclass.cppExt` - extension for the source file created (defaults to `'cc'`)
+* `cpp.newclass.hppExtension` - extension for the header file created (defaults to `'h'`)
+* `cpp.newclass.cppExtension` - extension for the source file created (defaults to `'cc'`)
 * `cpp.newclass.useIfndef` - whether to to use `'ifndef'` header guard or `'#pragma once'` one
-* `cpp.newclass.lowerCaseNS` - transform namespace names to lower case (according to google C++ code style)
-* `cpp.newclass.snakeCaseFileName` - transform filenames to snake case
+* `cpp.newclass.lowerCaseNamespace` - transform namespace names to lower case
+* `cpp.newclass.snakeCaseFilename` - transform filenames to snake case

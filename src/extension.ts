@@ -41,16 +41,11 @@ class ClassGenerator {
 	}
 
 	private readSetting() {
-		if (vscode.workspace.getConfiguration().get("cpp.newclass.CPPExt"))
-			this._cppExt = vscode.workspace.getConfiguration().get("cpp.newclass.cppExt") as string;
-		if (vscode.workspace.getConfiguration().get("cpp.newclass.HPPExt"))
-			this._hppExt = vscode.workspace.getConfiguration().get("cpp.newclass.hppExt") as string;
-		if (vscode.workspace.getConfiguration().get("cpp.newclass.useIfnDef"))
-			this._useIfndef = vscode.workspace.getConfiguration().get("cpp.newclass.useIfndef") as boolean;
-		if (vscode.workspace.getConfiguration().get("cpp.newclass.lowerCaseNS"))
-			this._lowerCaseNS = vscode.workspace.getConfiguration().get("cpp.newclass.lowerCaseNS") as boolean;
-		if (vscode.workspace.getConfiguration().get("cpp.newclass.snakeCaseFileName"))
-			this._snakeCaseFileName = vscode.workspace.getConfiguration().get("cpp.newclass.snakeCaseFileName") as boolean;
+		this._cppExt = vscode.workspace.getConfiguration().get("cpp.newclass.cppExtension") as string;
+		this._hppExt = vscode.workspace.getConfiguration().get("cpp.newclass.hppExtension") as string;
+		this._useIfndef = vscode.workspace.getConfiguration().get("cpp.newclass.useIfndef") as boolean;
+		this._lowerCaseNS = vscode.workspace.getConfiguration().get("cpp.newclass.lowerCaseNamespace") as boolean;
+		this._snakeCaseFileName = vscode.workspace.getConfiguration().get("cpp.newclass.snakeCaseFilename") as boolean;
 	}
 
 	async createClass() {
@@ -195,7 +190,7 @@ class ClassGenerator {
 		let result: boolean = false;
 
 		if (!this._className)
-			vscode.window.showErrorMessage("Your Class could not be created!");
+			vscode.window.showErrorMessage("Class could not be created!");
 		else if (this._className.indexOf(' ') >= 0)
 			vscode.window.showErrorMessage("Class name should not have spaces!");
 		else if (this.checkForSpecialChars())
