@@ -1,12 +1,12 @@
 {
-	"name": "cpp-new-class",
-	"displayName": "C++ New Class",
+	"name": "cpp-better-classes",
+	"displayName": "C++ Better Classes",
 	"description": "Yet another C++ class files generator",
-	"version": "0.23.2",
+	"version": "0.23.3",
 	"publisher": "stolyarchuk",
 	"icon": "icon/logo.png",
 	"repository": {
-		"url": "https://github.com/stolyarchuk/cpp-new-class.git"
+		"url": "https://github.com/stolyarchuk/cpp-better-classes.git"
 	},
 	"engines": {
 		"vscode": "^1.60.0"
@@ -15,13 +15,13 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:cpp-new-class.newClass"
+		"onCommand:cpp-better-classes.newClass"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "cpp-new-class.newClass",
+				"command": "cpp-better-classes.newClass",
 				"title": "C/C++: Create New Class..."
 			}
 		],
@@ -29,13 +29,13 @@
 			"explorer/context": [
 				{
 					"group": "navigation@-1",
-					"command": "cpp-new-class.newClass"
+					"command": "cpp-better-classes.newClass"
 				}
 			]
 		},
 		"keybindings": [
 			{
-				"command": "cpp-new-class.newClass",
+				"command": "cpp-better-classes.newClass",
 				"key": "ctrl+k n",
 				"when": "editorTextFocus"
 			}
@@ -53,32 +53,32 @@
 		],
 		"configuration": [
 			{
-				"title": "C++ New Class",
+				"title": "C++ Better Classes",
 				"properties": {
-					"cpp.newclass.cppExtension": {
+					"cpp.betterclasses.cppExtension": {
 						"type": "string",
-						"default": "cc",
-						"description": "C++ source file extension (.cc)"
+						"default": "cpp",
+						"description": "C++ source file extension (.cpp)"
 					},
-					"cpp.newclass.hppExtension": {
+					"cpp.betterclasses.hppExtension": {
 						"type": "string",
-						"default": "h",
-						"description": "C++ header file extension (.h)"
+						"default": "hpp",
+						"description": "C++ header file extension (.hpp)"
 					},
-					"cpp.newclass.useIfndef": {
+					"cpp.betterclasses.useIfndef": {
 						"type": "boolean",
 						"default": true,
 						"description": "Use #ifndef for header guard. Use #pragma once otherwise."
 					},
-					"cpp.newclass.lowerCaseNamespace": {
+					"cpp.betterclasses.lowerCaseNamespace": {
 						"type": "boolean",
 						"default": true,
-						"description": "Transform namespace names to lower case."
+						"description": "Transform namespace name to lower case."
 					},
-					"cpp.newclass.snakeCaseFilename": {
+					"cpp.betterclasses.snakeCaseFilename": {
 						"type": "boolean",
 						"default": true,
-						"description": "Transform filenames to snake case."
+						"description": "Transform file name to snake case."
 					}
 				}
 			}

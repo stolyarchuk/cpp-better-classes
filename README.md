@@ -1,4 +1,4 @@
-# VSCode CPP New Class Extension
+# VS Code CPP Better Classes Extension
 
 ## Features
 
@@ -19,8 +19,8 @@
 
 ## Settings
 
-* `cpp.newclass.hppExtension` - extension for the header file created (defaults to `'h'`)
-* `cpp.newclass.cppExtension` - extension for the source file created (defaults to `'cc'`)
-* `cpp.newclass.useIfndef` - whether to to use `'ifndef'` header guard or `'#pragma once'` one
-* `cpp.newclass.lowerCaseNamespace` - transform namespace names to lower case
-* `cpp.newclass.snakeCaseFilename` - transform filenames to snake case
+* `cpp.betterclasses.hppExtension` - extension for the header file created (defaults to `'hpp'`)
+* `cpp.betterclasses.cppExtension` - extension for the source file created (defaults to `'cpp'`)
+* `cpp.betterclasses.useIfndef` - whether to to use `'ifndef'` header guard or `'#pragma once'` one
+* `cpp.betterclasses.lowerCaseNamespace` - transform namespace name to lower case
+* `cpp.betterclasses.snakeCaseFilename` - transform file name to snake case

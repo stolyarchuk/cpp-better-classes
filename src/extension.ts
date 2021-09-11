@@ -17,8 +17,8 @@ const specialsChars = /[!@#$%^&*()_+\-=\[\]{};'"\\|,.<>\/?]+/;
 
 class ClassGenerator {
 	_path: any = undefined;
-	_hppExt: string = 'h';
-	_cppExt: string = 'cc';
+	_hppExt: string = 'hpp';
+	_cppExt: string = 'cpp';
 	_useIfndef: boolean = true;
 	_lowerCaseNS: boolean = true;
 	_snakeCaseFileName: boolean = true;
@@ -41,11 +41,11 @@ class ClassGenerator {
 	}
 
 	private readSetting() {
-		this._cppExt = vscode.workspace.getConfiguration().get("cpp.newclass.cppExtension") as string;
-		this._hppExt = vscode.workspace.getConfiguration().get("cpp.newclass.hppExtension") as string;
-		this._useIfndef = vscode.workspace.getConfiguration().get("cpp.newclass.useIfndef") as boolean;
-		this._lowerCaseNS = vscode.workspace.getConfiguration().get("cpp.newclass.lowerCaseNamespace") as boolean;
-		this._snakeCaseFileName = vscode.workspace.getConfiguration().get("cpp.newclass.snakeCaseFilename") as boolean;
+		this._cppExt = vscode.workspace.getConfiguration().get("cpp.betterclasses.cppExtension") as string;
+		this._hppExt = vscode.workspace.getConfiguration().get("cpp.betterclasses.hppExtension") as string;
+		this._useIfndef = vscode.workspace.getConfiguration().get("cpp.betterclasses.useIfndef") as boolean;
+		this._lowerCaseNS = vscode.workspace.getConfiguration().get("cpp.betterclasses.lowerCaseNamespace") as boolean;
+		this._snakeCaseFileName = vscode.workspace.getConfiguration().get("cpp.betterclasses.snakeCaseFilename") as boolean;
 	}
 
 	async createClass() {
@@ -60,7 +60,7 @@ class ClassGenerator {
 		this.generateFilenames();
 
 		if (this.createSourceFile() && this.createHeaderFile())
-			vscode.window.showInformationMessage('Class ' + this._className + '  has been created!');
+			vscode.window.showInformationMessage('class ' + this._className + '  has been created!');
 	}
 
 	private generateFilenames() {
@@ -84,8 +84,8 @@ class ClassGenerator {
 			tokens.push(this._className, 'h');
 			ifndef = tokens.join('_').toUpperCase();
 
-			buffer += `#ifndef ` + ifndef + `
-#define ` + ifndef + `
+			buffer += `#ifndef ${ifndef}
+#define ${ifndef}
 
 `;
 		} else
@@ -93,19 +93,18 @@ class ClassGenerator {
 			
 `;
 		buffer += this.namespaceBegin();
-		buffer += `class ` + this._className + `{
+		buffer += `class ${this._className} {
  public:
-	`+ this._className + `::` + this._className + `();
+	${this._className}::${this._className}();
 
  private:
-
 };
 `;
 		buffer += this.namespaceEnd();
 
 		if (this._useIfndef)
 			buffer += `
-#endif  // ` + ifndef + `
+#endif  // ${ifndef}
 `;
 
 		const fullPath = path.join(this._path, this._hppName);
@@ -121,12 +120,12 @@ class ClassGenerator {
 
 	private createSourceFile() {
 		let result: boolean = true;
-		let buffer = `#include "` + this._hppName + `"
+		let buffer = `#include "${this._hppName}"
 
 `;
 
 		buffer += this.namespaceBegin();
-		buffer += this._className + `::` + this._className + `() {}
+		buffer += `${this._className}::${this._className} () {}
 `;
 		buffer += this.namespaceEnd();
 
@@ -145,7 +144,7 @@ class ClassGenerator {
 	private namespaceBegin() {
 		let ns_string: string = '';
 		if (this._namespaces.length !== 0)
-			ns_string = `namespace ` + this._namespaces.join('::') + ` {
+			ns_string = `namespace ${this._namespaces.join('::')} {
 
 `;
 		return ns_string;
@@ -155,7 +154,7 @@ class ClassGenerator {
 		let ns_string: string = '';
 		if (this._namespaces.length !== 0)
 			ns_string = `
-}` + `  // namespace ` + this._namespaces.join('::') + `
+} // namespace ${this._namespaces.join('::')}
 `;
 		return ns_string;
 	}
@@ -215,7 +214,7 @@ class ClassGenerator {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerCommand('cpp-new-class.newClass', (args) => {
+	let disposable = vscode.commands.registerCommand('cpp-better-classes.newClass', (args) => {
 		let cls_generator = new ClassGenerator(args);
 
 		if (cls_generator.hasPath())
