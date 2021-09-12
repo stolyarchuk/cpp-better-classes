@@ -2,7 +2,7 @@
 	"name": "cpp-better-classes",
 	"displayName": "C++ Better Classes",
 	"description": "Yet another C++ class files generator",
-	"version": "0.23.3",
+	"version": "0.23.4",
 	"publisher": "stolyarchuk",
 	"icon": "icon/logo.png",
 	"repository": {
@@ -15,7 +15,8 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:cpp-better-classes.newClass"
+		"onCommand:cpp-better-classes.newClass",
+		"onCommand:cpp-better-classes.newClassTemplate"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -23,20 +24,21 @@
 			{
 				"command": "cpp-better-classes.newClass",
 				"title": "C/C++: Create New Class..."
+			},
+			{
+				"command": "cpp-better-classes.newClassTemplate",
+				"title": "C/C++: Create New Class Template..."
 			}
 		],
-		"menus": {
-			"explorer/context": [
-				{
-					"group": "navigation@-1",
-					"command": "cpp-better-classes.newClass"
-				}
-			]
-		},
 		"keybindings": [
 			{
 				"command": "cpp-better-classes.newClass",
 				"key": "ctrl+k n",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cpp-better-classes.newClassTemplate",
+				"key": "ctrl+k t",
 				"when": "editorTextFocus"
 			}
 		],
@@ -90,7 +92,10 @@
 		"esbuild": "npm run esbuild-base -- --sourcemap",
 		"esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
 		"watch": "tsc -watch -p ./",
-		"test-compile": "tsc -p ./"
+		"test-compile": "tsc -p ./",
+		"pretest": "npm run test-compile",
+		"test": "node ./out/test/runTest.js",
+		"deploy": "vsce publish --yarn"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.3",
@@ -104,6 +109,7 @@
 		"glob": "^7.1.7",
 		"mocha": "^8.4.0",
 		"typescript": "^4.3.2",
+		"vsce": "^1.99.0",
 		"vscode-test": "^1.5.2"
 	}
 }
