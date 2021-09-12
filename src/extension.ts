@@ -27,20 +27,21 @@ class ClassGenerator {
 	_cppName: any = undefined;
 	_hppName: any = undefined;
 
-	constructor(args: any) {
+	constructor() {
+		this.getConfiguration();
+	}
+
+	init(args: any) {
 		if (args)
 			this._path = args.path;
 		else
 			this.getCurrentWSPath();
 
-		this.readSetting();
-	}
 
-	hasPath() {
 		return (this._path !== undefined);
 	}
 
-	private readSetting() {
+	private getConfiguration() {
 		this._cppExt = vscode.workspace.getConfiguration().get("cpp.betterclasses.cppExtension") as string;
 		this._hppExt = vscode.workspace.getConfiguration().get("cpp.betterclasses.hppExtension") as string;
 		this._useIfndef = vscode.workspace.getConfiguration().get("cpp.betterclasses.useIfndef") as boolean;
@@ -63,6 +64,21 @@ class ClassGenerator {
 			vscode.window.showInformationMessage('class ' + this._className + '  has been created!');
 	}
 
+	async createClassTemplate() {
+		this._className = await createNameInput();
+
+		if (!this.checkClassName())
+			return;
+
+		if (!this.extractNamespaces())
+			return;
+
+		this.generateFilenames();
+
+		if (this.createTemplateHeaderFile())
+			vscode.window.showInformationMessage('class ' + this._className + '  has been created!');
+	}
+
 	private generateFilenames() {
 		let baseName: string = this._className;
 
@@ -72,6 +88,53 @@ class ClassGenerator {
 		this._hppName = [baseName, this._hppExt].join('.');
 		this._cppName = [baseName, this._cppExt].join('.');
 	}
+
+	private createTemplateHeaderFile() {
+		let result: boolean = true;
+		let buffer: string = '';
+		let ifndef: string = '';
+
+		if (this._useIfndef) {
+			let tokens: string[] = Object.assign([], this._namespaces);
+
+			tokens.push(this._className, 'h');
+			ifndef = tokens.join('_').toUpperCase();
+
+			buffer += `#ifndef ${ifndef}
+#define ${ifndef}
+
+`;
+		} else
+			buffer += `#pragma once
+			
+`;
+		buffer += this.namespaceBegin();
+		buffer += `template <typename T>
+class ${this._className} {
+ public:
+	${this._className}::${this._className}();
+
+ private:
+};
+`;
+		buffer += this.namespaceEnd();
+
+		if (this._useIfndef)
+			buffer += `
+#endif  // ${ifndef}
+`;
+
+		const fullPath = path.join(this._path, this._hppName);
+
+		fs.writeFile(fullPath, buffer, function (err) {
+			if (err) {
+				console.error(err);
+				result = false;
+			}
+		});
+		return result;
+	}
+
 
 	private createHeaderFile() {
 		let result: boolean = true;
@@ -214,17 +277,27 @@ class ClassGenerator {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerCommand('cpp-better-classes.newClass', (args) => {
-		let cls_generator = new ClassGenerator(args);
+	let cls_generator = new ClassGenerator();
 
-		if (cls_generator.hasPath())
-			cls_generator.createClass()
+	let cmdNewClass = vscode.commands.registerCommand('cpp-better-classes.newClass', async (args) => {
+
+		if (cls_generator.init(args))
+			await cls_generator.createClass()
 		else
 			vscode.window.showErrorMessage('Open Workspace First!');
 
 	});
 
-	context.subscriptions.push(disposable);
+	let cmdNewClassTemplate = vscode.commands.registerCommand('cpp-better-classes.newClassTemplate', async (args) => {
+
+		if (cls_generator.init(args))
+			await cls_generator.createClassTemplate()
+		else
+			vscode.window.showErrorMessage('Open Workspace First!');
+
+	});
+
+	context.subscriptions.push(cmdNewClassTemplate, cmdNewClass);
 }
 
 export function deactivate() { }
