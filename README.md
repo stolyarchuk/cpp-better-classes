@@ -12,6 +12,7 @@
 
 * Open command pallete (`ctrl+shift+p`)
 * Type `C/C++: Create New Class...`
+* Type `C/C++: Create New Class Template...`
 
 ## Keyboard Shortcut
 
