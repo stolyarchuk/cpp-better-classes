@@ -1,5 +1,7 @@
 # VS Code CPP Better Classes Extension
 
+![Screen Shot](/images/screenshot.gif)
+
 ## Features
 
 * Auto creates header and source files from the given class name

@@ -13,7 +13,7 @@ async function createNameInput() {
 	return vscode.window.showInputBox(option);
 }
 
-const specialsChars = /[!@#$%^&*()_+\-=\[\]{};'"\\|,.<>\/?]+/;
+const specialsChars = /[!@#$%^&*()+\=\[\]{};'"\\|,.<>\/?]+/;
 
 class ClassGenerator {
 	_path: any = undefined;
@@ -112,7 +112,7 @@ class ClassGenerator {
 		buffer += `template <typename T>
 class ${this._className} {
  public:
-	${this._className}::${this._className}();
+	${this._className}();
 
  private:
 };
@@ -158,7 +158,7 @@ class ${this._className} {
 		buffer += this.namespaceBegin();
 		buffer += `class ${this._className} {
  public:
-	${this._className}::${this._className}();
+	${this._className}();
 
  private:
 };
