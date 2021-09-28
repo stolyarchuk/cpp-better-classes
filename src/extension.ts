@@ -97,7 +97,7 @@ class ClassGenerator {
 		if (this._useIfndef) {
 			let tokens: string[] = Object.assign([], this._namespaces);
 
-			tokens.push(this._className, 'h');
+			tokens.push(this._className, this._hppExt);
 			ifndef = tokens.join('_').toUpperCase();
 
 			buffer += `#ifndef ${ifndef}
@@ -144,7 +144,7 @@ class ${this._className} {
 		if (this._useIfndef) {
 			let tokens: string[] = Object.assign([], this._namespaces);
 
-			tokens.push(this._className, 'h');
+			tokens.push(this._className, this._hppExt);
 			ifndef = tokens.join('_').toUpperCase();
 
 			buffer += `#ifndef ${ifndef}

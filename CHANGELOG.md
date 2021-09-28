@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.23.7] - 2021-09-20
+
+### Fixed
+
+- Fix changelog typos in refs
+- Other minor improvements
+
 ## [0.23.6] - 2021-09-20
 
 ### Fixed
@@ -34,7 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - New command `'Create New Class...'`
 
-[Unreleased]: https://github.com/stolyarchuk/cpp-better-classes/compare/v0.23.6...HEAD
+[Unreleased]: https://github.com/stolyarchuk/cpp-better-classes/compare/releases/v0.23.7...HEAD
+[0.23.7]: https://github.com/stolyarchuk/cpp-better-classes/compare/releases/v0.23.6...releases/v0.23.7
 [0.23.6]: https://github.com/stolyarchuk/cpp-better-classes/compare/releases/v0.23.5...releases/v0.23.6
 [0.23.5]: https://github.com/stolyarchuk/cpp-better-classes/compare/v0.23.4...releases/v0.23.5
 [0.23.4]: https://github.com/stolyarchuk/cpp-better-classes/compare/v0.23.3...v0.23.4
